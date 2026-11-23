@@ -1,0 +1,18 @@
+{
+  "name": "realtime-agent",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "bun run --parallel --filter '@agent/*' dev",
+    "build": "bun run --filter @agent/web build",
+    "test": "bun run --filter @agent/server test",
+    "models:pull": "ollama pull bonsai-2:2b && ollama pull phonon:fr",
+    "models:voxtral": "uvx --python 3.12 --with 'mistral-common[audio]' --from 'mlx-audio[server,stt] @ git+https://github.com/Blaizzy/mlx-audio.git@84e85d9be92eda9ed94081e921f011f6d13dc867' mlx_audio.server --host 127.0.0.1 --port 8000 --realtime-model iris-sfg/Voxtral-Mini-4B-Realtime-2602-4bit --realtime-transcription-delay-ms 480"
+  },
+  "packageManager": "bun@1.3.11"
+}
